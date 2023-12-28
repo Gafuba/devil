@@ -1,0 +1,36 @@
+{% extends "main/index.html" %} {% load crispy_forms_tags %} {% block start %}
+{% if user.is_authenticated %}
+
+OK TESTING TESTING
+
+How it works is <br><br>
+
+Go to Portfolio, create as many portfolios as you like depending on how you need them<br><br>
+
+Add the item you bought to each portfolio, the price you bought them at and how many <br><br>
+
+You can delete items from portfolios, delete the portfolio etc <br><br>
+
+You can see each portfolio stat in the portfolio section <br><br>
+
+But if you would like a complete overview of your account you can go to Overview tab <br><br>
+
+Furthermore there is also the analysis tab <br><br>
+
+Which allows for you to type in the exact name of an item and then see its stats and what not <br><br>
+
+Also the lootbear tab which i will develop soon <br><br>
+
+Then the profile tab is bugged and its too low of a priority right now <br><br>
+
+
+
+
+
+
+
+
+{%else%}
+<main>poo</main>
+
+{% endif %} {% endblock start %}

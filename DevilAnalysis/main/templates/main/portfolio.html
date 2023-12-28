@@ -1,0 +1,249 @@
+{% extends "main/index.html" %} {% load crispy_forms_tags %} {% block start %}
+{% if user.is_authenticated %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolios</title>
+  </head>
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="styleheader">Purchase Investment</h1>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">{{ form_buy|crispy}}</fieldset>
+            <center>
+              <button
+                style="padding: 2%; font-size: 2rem; color: white"
+                class="btn"
+                type="submit"
+                name="purchase"
+              >
+                <span class="glyphicon glyphicon-check"></span> Submit Purchase
+              </button>
+            </center>
+            <br />
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <!-- Add additional buttons if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal3">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="styleheader">Delete Portfolio</h1>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              {{ form_portfolio_delete|crispy}}
+            </fieldset>
+            <center>
+              <button
+                style="padding: 2%; font-size: 2rem; color: white"
+                class="btn"
+                type="submit"
+                name="delete"
+              >
+                <span class="glyphicon glyphicon-check"></span> Confirm Deletion
+              </button>
+            </center>
+            <br />
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <!-- Add additional buttons if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="styleheader">Create Portfolio</h1>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              {{ form_portfolio_create|crispy}}
+            </fieldset>
+            <center>
+              <button
+                style="padding: 2%; font-size: 2rem; color: white"
+                class="btn"
+                type="submit"
+                name="purchase"
+              >
+                <span class="glyphicon glyphicon-check"></span> Confirm Creation
+              </button>
+            </center>
+            <br />
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <!-- Add additional buttons if needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <body>
+    <button
+      type="button"
+      class="btn"
+      data-toggle="modal"
+      data-target="#myModal2"
+    >
+      Create Portfolio
+    </button>
+
+    {%for portfolio in p_array %}
+    <header>
+      <h1>{{portfolio.name}}</h1>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal"
+      >
+        Purchase Investment
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#myModal3"
+      >
+        Delete Portfolio
+      </button>
+    </header>
+
+    <section>
+      <h2>Investments</h2>
+
+      <table class="investment-table">
+        <thead>
+          <tr>
+            <th>Investment Name</th>
+            <th>Average Purchase Price</th>
+            <th>Amount Owned</th>
+            <th>Average Investment Profit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add your investment data here -->
+          {%for investment in portfolio.investments %}
+          <tr class="success">
+            <th scope="row">{{investment.name}}</th>
+            <th scope="row">{{investment.purchase_price}}</th>
+            <th scope="row">{{investment.quantity}}</th>
+            <th scope="row">£{{investment.calculate_profit}}</th>
+            <th scope="row">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#myModal{{ forloop.counter }}"
+              >
+                Sell Investment
+              </button>
+            </th>
+          </tr>
+          <div class="modal" id="myModal{{ forloop.counter }}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="styleheader">Sell {{investment.name}}</h1>
+                </div>
+                <div class="modal-body">
+                  <!-- Use the specific variable in the modal content -->
+                  <form method="POST">
+                    {% csrf_token %}
+
+                    <fieldset class="form-group">
+                      {{ form.quantity|as_crispy_field}} {{
+                      form.sell_price|as_crispy_field}}
+                      <input
+                        type="hidden"
+                        name="{{ form.name.name }}"
+                        value="{{ investment.name }}"
+                      />
+                    </fieldset>
+
+                    <center>
+                      <button
+                        style="padding: 2%; font-size: 2rem; color: white"
+                        class="btn"
+                        type="submit"
+                        name="sell"
+                      >
+                        <span class="glyphicon glyphicon-check"></span> Confirm
+                        Sale
+                      </button>
+                    </center>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </section>
+
+    {% endfor %}
+  </body>
+</html>
+
+{%else%}
+<main>poo</main>
+{% endif %} {% endblock start %}

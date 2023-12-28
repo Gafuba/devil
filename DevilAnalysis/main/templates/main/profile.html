@@ -1,0 +1,26 @@
+{% extends "main/index.html" %} {% load crispy_forms_tags %} {% block start %}
+{% if user.is_authenticated %} 
+
+Username:                  {{stats.name}} </br>
+Total gain:                {{stats.total_gain}}</br>
+Value of all goods sold:   {{stats.total_volume_sold_value}}</br>
+Total Volume Sold:         {{stats.total_volume_sold}}</br>
+Total Volume Bought:       {{stats.total_volume_bought}}</br>
+Value of all goods bought: {{stats.total_volume_bought_value}}</br>
+Total Trades:              {{stats.total_trades}}</br>
+Average Profit Per trade:  {{stats.average_profit_per_trade}}</br>
+Biggest Winner name:       {{stats.biggest_winner_name}}</br>
+Biggest Winner:            {{stats.biggest_winner}}</br>
+Biggest loser name:        {{stats.biggest_loser_name}}</br>
+Biggest loser:             {{stats.biggest_loser}}</br>
+</br>
+
+
+
+
+
+
+
+{%else%}
+<main>poo</main>
+{% endif %} {% endblock start %}

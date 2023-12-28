@@ -1,0 +1,194 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="title" content="project">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="author" content="vinayak sharma">
+
+<title>Devil Analysis</title>
+
+
+<!-- bootstrap file -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- bootstrap file-->
+
+<!-- jQuery -->
+
+
+
+<!-- main css -->
+
+<style>
+	.table tr.danger {
+        background-color: #8b0000 !; /* Darker red background color */
+        color: #8b0000; /* Set text color to white for better visibility */
+    }
+	.table tr.success {
+	  font-family: "Arial", sans-serif;
+	  background-color: #298804;
+	  color: #298804;
+	}
+	.table tr.info {
+	  font-family: "Arial", sans-serif;
+	  background-color: #002b63;
+	  color: #002b63;
+	}
+
+	div {
+	  font-family: "Arial", sans-serif;
+	  background-color: #1f1f2d;
+	  color: #333;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	
+
+	div {
+	  font-family: "Arial", sans-serif;
+
+	  color: #f5f5f5;
+	}
+	h2 {
+	  font-family: "Arial", sans-serif;
+
+	  color: #f5f5f5;
+	}
+	h1 {
+	font-family: "Arial", sans-serif;
+
+	color: #f5f5f5;	
+
+	}
+	body {
+	  font-family: "Arial", sans-serif;
+	  background-color: #1f1f2d;
+	  color: #333;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	header {
+	  background-color: #171820;
+	  color: #fff;
+	  text-align: center;
+	  padding: 20px;
+	}
+
+	section {
+	  margin: 20px;
+	}
+
+	.investment-table {
+	  width: 100%;
+	  border-collapse: collapse;
+	  margin-top: 20px;
+	}
+
+	.investment-table th,
+	.investment-table td {
+	  border: 1px solid #ddd;
+	  padding: 8px;
+	  text-align: left;
+	}
+
+	.investment-table th {
+	  background-color: #0c1825;
+	  color: #fff;
+	}
+
+	button.btn, .btn {
+	  font-family: "Arial", sans-serif;
+	  background-color: #CF3033;
+	  color: #fff;
+	}
+
+	.navbar {
+	  font-family: "Arial", sans-serif;
+	  background-color: #141421;
+	  color: #fff;
+	}
+  </style>
+
+<!-- message here -->
+
+{% if messages %}
+{% for message in messages %}
+
+<script>
+	alert("{{ message }}");
+</script>
+
+{% endfor %}
+{% endif %}
+
+<!--_______________________________________________-->
+
+
+
+
+</head>
+
+<body class="container-fluid">
+
+
+<header class="row">
+
+	<!-- navbar-->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<button class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" class="styleheader" href="{% url "index" %}">Devil Analysis</a>
+		</div>
+		<div class="collapse navbar-collapse" id="mainNavBar">
+		<ul class="nav navbar-nav navbar-right">
+
+			{% if user.is_authenticated %}
+			<li><a href="{% url "overview" %}"><span class="glyphicon glyphicon-home"></span>  Overview</a></li>
+			<li><a href="{% url "portfolio" %}"><span class="glyphicon glyphicon-lock"></span>  Portfolio</a></li>
+			<li><a href="{% url "analysis" %}"><span class="glyphicon glyphicon-tower"></span>  Analysis</a></li>
+			<li><a href="{% url "help" %}"><span class="glyphicon glyphicon-question-sign"></span>  Help</a></li>
+			<li><a href="{% url "index" %}"><span class="glyphicon glyphicon-book"></span>  Lootbear Guide</a></li>
+			<li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+
+			<li><a href="{% url "profile" %}"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+			
+			{% else %}
+			<li><a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span>  Sign up</a></li>
+			<li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span>  Log in</a></li>
+			{% endif %}
+
+		</ul>
+		</div>
+	</div>
+	</nav>
+</header>
+<br/>
+<br>
+<br>
+<div class="row">
+	{% block start %}
+	{% if user.is_authenticated %}
+	<center><h1>Welcome back {{user.username}}!</h1></center>
+	{% else %}
+	<center><h1>Log In Please . . .</h1></center>
+	{% endif %}
+	{% endblock %}
+</div>
+</body>
+
+</html>
