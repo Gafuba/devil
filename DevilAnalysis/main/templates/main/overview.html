@@ -1,0 +1,85 @@
+{% extends "main/index.html" %} {% load crispy_forms_tags %} {% block start %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+<script>
+
+  var pieC = {
+    type: 'pie',
+    data: {
+      datasets: [{
+        data: {{ datalPieChart1|safe }},
+        backgroundColor: [
+          '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+        ],
+        label: 'Total Inventory Value'
+      }],
+      labels: {{ labelPieChart1|safe }}
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: true,
+    }
+  };
+</script>
+<script>
+
+  var lineC = {
+    type: 'line',
+    data: {
+      datasets: [{
+        data: {{ dataLineChart1|safe }},
+        backgroundColor: [
+          '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+        ],
+        label: 'Total Inventory Value'
+      }],
+      labels: {{ labelLineChart1|safe }}
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+    }
+  };
+
+  window.onload = function() {
+    var ctx = document.getElementById('pie-chart1').getContext('2d');
+    window.myPie = new Chart(ctx, pieC);
+
+    var ctx = document.getElementById('line-chart1').getContext('2d');
+    window.myPie = new Chart(ctx, lineC);
+  };
+</script>
+
+{% if user.is_authenticated %}
+
+
+  <div class="col">
+    <ul>
+      User Portfolio <br>
+      {%for investment in items %}
+      <li>
+        {{investment}}
+        <br />{{investment.quantity}} items bought @
+        £{{investment.purchase_price}} means £{{investment.calculate_profit}}
+        {{investment.is_profit}}
+      </li>
+      {% endfor%}
+      <br />
+      Total Profit = £{{total}} Total Value = £{{value}}
+    </ul>
+  </div>
+  <div class="col">
+    <br> PieChart </br>
+    <canvas id="pie-chart1"></canvas>
+  </div>
+  <div class="col">
+    <br> LineChart </br>
+      <canvas id="line-chart1"></canvas>
+  </div>   
+     
+
+
+{% else %}
+<main>pooopooo</main>
+
+{% endif %} {% endblock start %}

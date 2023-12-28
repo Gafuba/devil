@@ -1,0 +1,39 @@
+<div class="row1">
+  <div class="col-sm-2">
+    <h1 class="styleheader">Last 15 Days</h1>
+    <ul>
+      {% for name, value, sold, test in item %} {{name}}
+      <br />
+      <hr />
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-2">
+    <h1 class="styleheader">Median Price</h1>
+    <ul>
+      {% for name, value, sold, test in item %}{{value}}
+      <br />
+      <hr />
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-2">
+    <h1 class="styleheader">Amount Sold</h1>
+    <ul>
+      {% for name, value, sold, test in item %}{{sold}}
+      <br />
+      <hr />
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="col-sm-2">
+    <h1 class="styleheader">Price Change</h1>
+    <ul>
+      {% for name, value, sold, test in item %}{{test}}
+      <br />
+      <hr />
+      {% endfor %} {{total_change}}
+    </ul>
+  </div>
+</div>

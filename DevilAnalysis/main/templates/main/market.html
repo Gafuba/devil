@@ -1,0 +1,51 @@
+{% extends "main/index.html" %} {% load crispy_forms_tags %} {% block start %}
+{% if user.is_authenticated %} {% if submitted %} Purchase Completed! {%else%}
+<div class="content-section col-md-3 col-md-offset-2">
+  <main
+    method="POST"
+    style="border: 1px solid black; margin: 4%; padding: 10%; border-radius: 1%"
+  >
+    <h1 class="styleheader">Purchase</h1>
+    <main class="styleheader">
+      This section is used to add items to your portfolio
+    </main>
+
+    <center>
+      <button
+        style="background: black; padding: 2%; font-size: 2rem; color: white"
+        class="btn btn-outline-info"
+        type="submit"
+      >
+      <a class="glyphicon glyphicon-checkclass="styleheader" href="{% url "purchase" %}">Take me to purchase</a>
+      </button>
+    </center>
+    <br />
+  </main>
+</div>
+
+<div class="content-section col-md-3 col-md-offset-2">
+  <main
+    method="POST"
+    style="border: 1px solid black; margin: 4%; padding: 10%; border-radius: 1%"
+  >
+    <h1 class="styleheader">Sell</h1>
+    <main class="styleheader">
+      This section is used to remove items to your portfolio
+    </main>
+
+    <center>
+      <button
+        style="background: black; padding: 2%; font-size: 2rem; color: white"
+        class="btn btn-outline-info"
+        type="submit"
+      >
+      <a class="glyphicon glyphicon-checkclass="styleheader" href="{% url "sell" %}">Take me to sell</a>
+      </button>
+    </center>
+    <br />
+  </main>
+</div>
+
+{% endif %} {% else %}
+<main>poo</main>
+main {% endif %} {% endblock start %}
